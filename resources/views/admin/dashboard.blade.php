@@ -5,16 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard — Lost & Found</title>
     <link href="/assets/bootstrap-5.3.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/lostfound.css?v=20260608-1" rel="stylesheet">
-    <script>
-        (function () {
-            const savedTheme = localStorage.getItem('campus-found-theme');
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.dataset.theme = 'dark';
-            }
-        })();
-    </script>
+    <link href="/assets/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/lostfound.css?v=20260609-10" rel="stylesheet">
 </head>
 <body class="bg-light admin-shell">
     @include('admin.partials.sidebar')
@@ -25,7 +17,7 @@
                 <div class="alert alert-success border-2 border-dark fw-bold py-2">{{ session('success') }}</div>
             @endif
 
-            <div class="mb-4 text-center">
+            <div class="admin-dashboard-heading mb-4 text-center">
                 <h1 class="fw-bold text-dark h3 mb-1">Management Dashboard</h1>
                 <p class="text-muted small mb-0">Monitor reports, categories, and community claims.</p>
             </div>
