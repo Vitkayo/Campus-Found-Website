@@ -8,16 +8,7 @@
     <link rel="apple-touch-icon" href="{{ asset('assets/campus-found-logo-nav.png') }}">
     <link href="/assets/bootstrap-5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/lostfound.css?v=20260608-1" rel="stylesheet">
-    <script>
-        (function () {
-            const savedTheme = localStorage.getItem('campus-found-theme');
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.dataset.theme = 'dark';
-            }
-        })();
-    </script>
+    <link href="/assets/lostfound.css?v=20260609-10" rel="stylesheet">
     @stack('styles')
 </head>
 <body class="bg-white">
@@ -151,25 +142,49 @@
         });
 
         (function () {
-            const toggle = document.querySelector('[data-theme-toggle]');
-            const icon = document.querySelector('[data-theme-icon]');
+            const toggle = document.querySelector('[data-menu-toggle]');
+            const icon = document.querySelector('[data-menu-icon]');
+            const nav = document.querySelector('.cf-nav');
 
-            if (!toggle || !icon) {
+            if (!toggle || !icon || !nav) {
                 return;
             }
 
-            const applyTheme = function (theme) {
-                const isDark = theme === 'dark';
-                document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
-                localStorage.setItem('campus-found-theme', isDark ? 'dark' : 'light');
-                icon.className = isDark ? 'bi bi-sun' : 'bi bi-moon-stars';
-                toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            const closeMenu = function () {
+                nav.classList.remove('is-menu-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Open navigation menu');
+                icon.className = 'bi bi-list';
             };
 
-            applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
-
             toggle.addEventListener('click', function () {
-                applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+                const isOpen = nav.classList.toggle('is-menu-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+                icon.className = isOpen ? 'bi bi-x-lg' : 'bi bi-list';
+            });
+
+            document.querySelectorAll('.cf-nav-links a').forEach(function (link) {
+                link.addEventListener('click', closeMenu);
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!nav.contains(event.target)) {
+                    closeMenu();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMenu();
+                    toggle.focus();
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 767) {
+                    closeMenu();
+                }
             });
         })();
     </script>
