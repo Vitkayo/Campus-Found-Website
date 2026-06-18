@@ -1403,6 +1403,11 @@
     justify-content: center;
 }
 
+.cf-home-report-grid {
+    grid-template-columns: repeat(2, minmax(0, 360px));
+    justify-content: center;
+}
+
 .cf-report-card {
     display: flex;
     flex-direction: column;
@@ -4430,5 +4435,17 @@ html[data-theme="dark"] .cf-upload-preview {
     .cf-page > main .cf-section .cf-report-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 0.8rem;
+    }
+
+    .cf-page > main .cf-section .cf-home-report-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    .cf-home-report-grid .cf-report-card {
+        width: 100%;
+        max-width: none;
     }
 }
