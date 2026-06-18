@@ -11,6 +11,7 @@
         'date' => $date ?: null,
         'sort' => $sort,
     ], $overrides), fn ($v) => $v !== null && $v !== '');
+    $hasBoardFilters = $filter !== 'all' || $category !== 'all' || filled($search) || filled($date) || $sort !== 'desc';
 @endphp
 
 <div class="cf-page cf-board-page">
@@ -31,6 +32,9 @@
                 <input type="search" name="search" value="{{ $search }}" placeholder="Search item, category, or location...">
             </label>
             <button type="submit" class="cf-btn cf-btn-primary">Search</button>
+            @if($hasBoardFilters)
+                <a href="{{ route('board.index') }}" class="cf-btn cf-btn-clear">Clear</a>
+            @endif
         </form>
 
         <div class="cf-board-status-row">
@@ -69,6 +73,9 @@
                     <option value="asc" @selected($sort === 'asc')>Oldest first</option>
                 </select>
             </label>
+            @if($hasBoardFilters)
+                <a href="{{ route('board.index') }}" class="cf-btn cf-btn-clear cf-controls-clear">Clear filters</a>
+            @endif
         </form>
 
         <div class="cf-report-grid">

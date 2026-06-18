@@ -9,6 +9,7 @@
         'search' => $search ?: null,
         'sort' => $sort,
     ], $overrides), fn ($v) => $v !== null && $v !== '');
+    $hasClaimFilters = $filter !== 'all' || filled($search) || $sort !== 'desc';
 @endphp
 
 <div class="cf-page cf-claims-page">
@@ -28,6 +29,9 @@
                 <input type="search" name="search" value="{{ $search }}" placeholder="Search item, name, contact, or message...">
             </label>
             <button type="submit" class="cf-btn cf-btn-primary">Search</button>
+            @if($hasClaimFilters)
+                <a href="{{ route('claims.index') }}" class="cf-btn cf-btn-clear">Clear</a>
+            @endif
         </form>
 
         <div class="cf-claims-filter-bar">
@@ -48,6 +52,9 @@
                         <option value="asc" @selected($sort === 'asc')>Oldest first</option>
                     </select>
                 </label>
+                @if($hasClaimFilters)
+                    <a href="{{ route('claims.index') }}" class="cf-btn cf-btn-clear cf-controls-clear">Clear filters</a>
+                @endif
             </form>
         </div>
 
