@@ -67,7 +67,7 @@
                         View All Reports <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-                <div class="cf-report-grid">
+                <div class="cf-report-grid cf-home-report-grid">
                     @forelse($recentItems as $item)
                         @php $modalId = 'home-item-' . $item['id']; @endphp
                         @include('partials.item-card', ['item' => $item, 'modalId' => $modalId])
@@ -92,7 +92,7 @@
                                 View Claimed Items <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
-                        <div class="cf-report-grid">
+                        <div class="cf-report-grid cf-home-report-grid">
                             @foreach($recentClaims as $claim)
                                 @php $claimItem = $claim['item'] ?? null; @endphp
                                 @if($claimItem)
