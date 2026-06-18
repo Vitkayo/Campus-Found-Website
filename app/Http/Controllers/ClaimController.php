@@ -33,7 +33,7 @@ class ClaimController extends Controller
         $validated = $request->validate([
             'item_id' => ['required', 'exists:items,id'],
             'claimant_name' => ['nullable', 'string', 'max:255'],
-            'contact_info' => ['required', 'string', 'max:255'],
+            'contact_info' => ['nullable', 'string', 'max:255'],
             'message' => ['nullable', 'string', 'max:1000'],
             'ownership_proof' => ['nullable', 'string', 'max:1000'],
             'verification_answer' => ['nullable', 'string', 'max:1000'],

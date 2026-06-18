@@ -796,6 +796,7 @@ class LostFoundWebTest extends TestCase
 
     public function test_found_report_on_lost_item(): void
     {
+        Storage::fake('public');
         $owner = User::factory()->create();
         $finder = User::factory()->create();
         $item = Item::create([
@@ -810,16 +811,21 @@ class LostFoundWebTest extends TestCase
         ]);
 
         $this->actingAs($finder);
+
         $this->post('/claims', [
             'item_id' => $item->id,
-            'contact_info' => '011555666',
-            'message' => 'Found at the front desk.',
+            'proof_image' => UploadedFile::fake()->image('found-phone.jpg', 600, 400),
         ])->assertRedirect();
 
+        $claim = ItemClaim::firstOrFail();
+        $this->assertNotNull($claim->proof_image_path);
+        Storage::disk('public')->assertExists($claim->proof_image_path);
         $this->assertDatabaseHas('item_claims', [
             'item_id' => $item->id,
             'type' => 'found',
             'status' => 'pending',
+            'contact_info' => null,
+            'message' => null,
         ]);
 
         $this->get('/claims?type=return')
@@ -830,7 +836,6 @@ class LostFoundWebTest extends TestCase
             ->assertSee('iPhone 13');
 
         $this->actingAs($owner);
-        $claim = ItemClaim::firstOrFail();
         $this->patch(route('claims.review', $claim), ['status' => 'approved']);
 
         $this->get('/board')

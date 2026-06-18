@@ -51,23 +51,18 @@
 
             const success = form.parentElement.querySelector('.cf-inline-success');
             const submit = form.querySelector('[type="submit"]');
-            const contact = form.querySelector('[name="contact_info"]');
-            const messageField = form.querySelector('[name="message"]');
+            const requiredFields = Array.from(form.querySelectorAll('[required]'));
 
-            for (const field of [contact, messageField]) {
+            for (const field of requiredFields) {
                 field.classList.remove('is-invalid');
             }
 
-            if (!contact.value.trim()) {
-                contact.focus();
-                contact.classList.add('is-invalid');
-                return;
-            }
-
-            if (!messageField.value.trim()) {
-                messageField.focus();
-                messageField.classList.add('is-invalid');
-                return;
+            for (const field of requiredFields) {
+                if (!field.value.trim()) {
+                    field.focus();
+                    field.classList.add('is-invalid');
+                    return;
+                }
             }
 
             submit.disabled = true;

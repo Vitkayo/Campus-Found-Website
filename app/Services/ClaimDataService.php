@@ -33,7 +33,7 @@ class ClaimDataService
             'type' => $type,
             'status' => 'pending',
             'claimant_name' => $data['claimant_name'] ?? null,
-            'contact_info' => $data['contact_info'],
+            'contact_info' => $data['contact_info'] ?? null,
             'message' => $ownershipProof,
             'verification_answer' => null,
             'proof_image_path' => $proofImagePath ?: null,

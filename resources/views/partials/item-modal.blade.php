@@ -95,13 +95,18 @@
                                 </label>
                             @endif
                             <label>
-                                <span>Contact Method <strong>*</strong></span>
-                                <input type="text" name="contact_info" placeholder="Phone number, email, or Telegram" required>
+                                <span>Contact Method <small>optional</small></span>
+                                <input type="text" name="contact_info" placeholder="Phone number, email, or Telegram">
                             </label>
                             @unless($isFound)
                                 <label>
-                                    <span>Where and when did you find it? <strong>*</strong></span>
-                                    <textarea name="ownership_proof" rows="3" placeholder="Share the location, date, and how the owner can identify it." required></textarea>
+                                    <span>Where and when did you find it? <small>optional</small></span>
+                                    <textarea name="ownership_proof" rows="3" placeholder="Share the location, date, and how the owner can identify it."></textarea>
+                                </label>
+                                <label>
+                                    <span>Found Item Photo <small>optional</small></span>
+                                    <input type="file" name="proof_image" accept="image/jpeg,image/png,image/webp">
+                                    <small class="cf-field-help">Upload a photo of the item you found. Maximum 5 MB.</small>
                                 </label>
                             @endunless
                             <button type="submit" class="cf-btn cf-btn-primary">
