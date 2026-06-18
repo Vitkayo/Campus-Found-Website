@@ -10,10 +10,10 @@
             <h3 class="fw-bold text-dark">Admin Login</h3>
             <p class="text-muted small mb-0">Use an administrator account to open the dashboard.</p>
             @error('email')
-                <div class="alert alert-danger mt-3 mb-0 py-2 small fw-bold">{{ $message }}</div>
+                <div class="alert alert-danger mt-3 mb-0 py-2 small fw-bold" data-auto-dismiss>{{ $message }}</div>
             @enderror
             @error('password')
-                <div class="alert alert-danger mt-3 mb-0 py-2 small fw-bold">{{ $message }}</div>
+                <div class="alert alert-danger mt-3 mb-0 py-2 small fw-bold" data-auto-dismiss>{{ $message }}</div>
             @enderror
             @if (session('error'))
                 <div class="alert alert-danger mt-3 mb-0 py-2 small fw-bold" data-auto-dismiss>{{ session('error') }}</div>

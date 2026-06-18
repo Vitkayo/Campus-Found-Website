@@ -6,7 +6,7 @@
     <title>Admin Dashboard - Campus Found</title>
     <link href="/assets/bootstrap-5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/lostfound.css?v=20260612-2" rel="stylesheet">
+    <link href="/assets/lostfound.css?v=20260617-10" rel="stylesheet">
 </head>
 <body class="bg-light admin-shell">
     @include('admin.partials.sidebar')
@@ -253,7 +253,7 @@
                         'sort' => $sort,
                     ], $overrides), fn ($v) => $v !== null && $v !== '');
                 @endphp
-                <div class="lf-filter-bar mb-3" style="max-width: 360px;">
+                <div class="lf-filter-bar lf-admin-claim-filter mb-3">
                     @foreach(['all' => 'All', 'return' => 'Found Reports', 'claim' => 'Claims'] as $type => $label)
                         @php $active = $claimFilter === $type; @endphp
                         <a href="{{ route('admin.dashboard', $adminClaimsQuery(['claim_status' => $type !== 'all' ? $type : null])) }}"

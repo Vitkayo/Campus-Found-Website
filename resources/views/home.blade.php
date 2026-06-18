@@ -170,9 +170,10 @@
 
     <footer class="cf-footer">
         <div class="cf-container cf-footer-grid">
-            <div>
+            <div class="cf-footer-brand">
                 <h2>Campus Found</h2>
                 <p>Connecting the campus community through honesty and technology. Lost and found made simple.</p>
+                <div class="cf-footer-badge"><i class="bi bi-shield-check"></i> Built for campus trust and faster recovery</div>
             </div>
             <div>
                 <h3>Navigation</h3>

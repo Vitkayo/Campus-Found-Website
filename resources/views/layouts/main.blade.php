@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" href="{{ asset('assets/campus-found-logo-nav.png') }}">
     <link href="/assets/bootstrap-5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/lostfound.css?v=20260617-2" rel="stylesheet">
+    <link href="/assets/lostfound.css?v=20260617-9" rel="stylesheet">
     @stack('styles')
 </head>
 <body class="bg-white">
@@ -155,6 +155,7 @@
             const toggle = document.querySelector('[data-menu-toggle]');
             const icon = document.querySelector('[data-menu-icon]');
             const nav = document.querySelector('.cf-nav');
+            const mobileAccount = document.querySelector('.cf-mobile-account-menu');
 
             if (!toggle || !icon || !nav) {
                 return;
@@ -167,26 +168,43 @@
                 icon.className = 'bi bi-list';
             };
 
+            const closeMobileAccount = function () {
+                if (mobileAccount) {
+                    mobileAccount.removeAttribute('open');
+                }
+            };
+
             toggle.addEventListener('click', function () {
+                closeMobileAccount();
                 const isOpen = nav.classList.toggle('is-menu-open');
                 toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                 toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
                 icon.className = isOpen ? 'bi bi-x-lg' : 'bi bi-list';
             });
 
-            document.querySelectorAll('.cf-nav-links a').forEach(function (link) {
+            if (mobileAccount) {
+                mobileAccount.addEventListener('toggle', function () {
+                    if (mobileAccount.open) {
+                        closeMenu();
+                    }
+                });
+            }
+
+            document.querySelectorAll('[data-menu-close]').forEach(function (link) {
                 link.addEventListener('click', closeMenu);
             });
 
             document.addEventListener('click', function (event) {
                 if (!nav.contains(event.target)) {
                     closeMenu();
+                    closeMobileAccount();
                 }
             });
 
             document.addEventListener('keydown', function (event) {
                 if (event.key === 'Escape') {
                     closeMenu();
+                    closeMobileAccount();
                     toggle.focus();
                 }
             });
@@ -194,6 +212,7 @@
             window.addEventListener('resize', function () {
                 if (window.innerWidth > 767) {
                     closeMenu();
+                    closeMobileAccount();
                 }
             });
         })();
